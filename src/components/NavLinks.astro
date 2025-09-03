@@ -1,0 +1,30 @@
+---
+
+interface props {
+    class: string;
+    id?: string;
+}
+
+const {class: className, id: IdName} = Astro.props;
+
+
+---
+<ul class={className} id={IdName}>
+    <li><a href="/">خانه</a></li>
+    <li><a href="/resume">رزومه</a></li>
+    <li><a href="/blog">دست‌نوشت</a></li>
+    <li><a href="/about">درباره‌ی‌من</a></li>
+</ul>
+
+<style>
+      .nav-links a {
+    font-weight: bold;
+    display: block;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-links a:hover {
+    color: var(--color-hover-text);
+  }
+</style>

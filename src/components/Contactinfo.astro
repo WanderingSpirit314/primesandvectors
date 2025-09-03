@@ -1,0 +1,55 @@
+---
+import LocationIcon from "../components/icons/LocationIcon.astro"
+import ContactIcon from "../components/icons/ContactIcon.astro"
+import GithubIcon from "../components/icons/GithubIcon.astro"
+import WebsiteIcon from "../components/icons/WebsiteIcon.astro"
+import EmailIcon from "./icons/EmailIcon.astro"
+
+interface Props {
+  class?: string;
+}
+
+
+const { class: className = "gap-2 text-sm text-gray-700" } = Astro.props;
+---
+<div class={className}>
+  <div class="flex gap-2">
+    <div class="space-y-1">
+      <div class="flex items-center space-x-2">
+        <LocationIcon></LocationIcon>
+        <span>ایران، تهران</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <ContactIcon></ContactIcon>
+        <span>09017658020</span>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <div class="flex items-center space-x-2">
+        <GithubIcon></GithubIcon>
+        <a
+          href="https://github.com/primesandvectors"
+          class="text-blue-600 hover:underline"
+          >primesandvectors</a
+        >
+      </div>
+      <div class="flex items-center space-x-2">
+        <WebsiteIcon></WebsiteIcon>
+        <a href="https://www.test.com" class="text-blue-600 hover:underline"
+          >www.test.com</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center space-x-2">
+    <EmailIcon></EmailIcon>
+    <a
+      href="mailto:primesandvectors314@gmail.com"
+      class="text-blue-600 hover:underline"
+    >
+      primesandvectors314@gmail.com
+    </a>
+  </div>
+</div>
+

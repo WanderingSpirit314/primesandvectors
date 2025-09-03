@@ -1,0 +1,26 @@
+---
+
+interface props {
+    class?: string;
+}
+
+const {class: className = `
+             max-w-[1650px] mx-auto w-full flex
+             pl-1 pr-2 pt-1 
+             sm:px-5 md:px-10 lg:px-14 2xl:px-0  
+             2xl:px-14 xl3-no-padding
+             ` } = Astro.props;
+
+---
+
+
+<main class={className}>
+    <slot />
+
+</main>    
+<style>
+    @media (min-width: 1650px) {
+        .xl3-no-padding {
+        padding: 0 !important;
+    }
+</style>

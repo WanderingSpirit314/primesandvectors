@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Main from "../components/Main.astro";
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="پویان چکامه">
+  <Main class="flex items-center  flex-col min-h-screen">
+    <div id="myDiv">
+        <div class="pt-30">
+          <a href="/about">
+            <img
+              src="/images/profile.jpg"
+              alt="Image of Pouyan"
+              class="object-cover rounded-full 
+			  		  w-42 h-42
+					  sm:w-52 sm:h-52 
+					  md:w-60 md:h-60
+					  lg:w-66 lg:h-66 "
+            />
+          </a>
+        </div>
+        <ul class="flex gap-x-8 justify-center text-accent">
+        	<li>
+              <a
+                href="/blog"
+                class="hero-text"
+              >
+                دست‌نوشت
+              </a>
+            </li>
+            <li>
+              <a
+                href="/resume"
+                class="hero-text"
+              >
+                رزومه
+              </a>
+            </li>
+        </ul>
+    </div>
+    <footer class="flex-1 mt-30 opacity-66 w-full bg-tertiary"></footer>
+  </Main>
+</Layout>
+
+
+
+	<style>
+	#myDiv {
+	opacity: 0;
+	animation: fadeIn 1.4s forwards;
+	}
+
+	@keyframes fadeIn {
+	to {
+		opacity: 1;
+	}
+	}
+
+	.hero-text {
+	font-weight: bold;
+	display: inline-block;
+	transition: transform 250ms;
+	}
+
+	.hero-text:hover {
+	transform: scale(1.05);
+	color: var(--color-hover-text); 
+	}
+	</style>
+
+</Layout>
+
+
+

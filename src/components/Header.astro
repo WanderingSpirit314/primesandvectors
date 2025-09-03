@@ -1,0 +1,169 @@
+---
+import NavigationMenu from "../components/NavLinks.astro"
+
+
+interface Props {
+  class?: string;
+}
+const { class: className = `
+  py-2 pr-3
+  sm:py-4 sm:pr-5
+  md:py-2 md:pr-12
+  lg:py-2 lg:pr-14
+  [1200px]:py-2 [1200px]:pr-8
+  [1240px]:py-2 [1240px]:pr-4
+  xl:py-2 xl:pr-14
+  2xl:py-2 2xl:pr-14
+  xl3-no-padding
+  max-w-[1650px] w-full mx-auto
+  border-b-2 border-secondary
+`} = Astro.props;
+---
+
+<header class={className}>
+  <nav class="flex justify-between items-center">
+    <NavigationMenu class="hidden md:flex gap-x-8 nav-links" id="primary-nav"></NavigationMenu>
+    
+    <button 
+      class="md:hidden flex flex-col gap-1 hamburger-btn" 
+      aria-label="Toggle menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      id="hamburger-btn"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu md:hidden" id="mobile-menu" aria-hidden="true">
+    <NavigationMenu class=" gap-1 nav-links"></NavigationMenu>
+  </div>
+</header>
+
+<noscript>
+  <style>
+    @media (max-width: 767px) {
+      .nav-links {
+        display: flex !important;
+        gap: 1rem;
+      }
+      .hamburger-btn,
+      .mobile-menu {
+        display: none !important;
+      }
+    }
+  </style>
+</noscript>
+
+<style>
+
+
+  .hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 24px;
+    height: 18px;
+    position: relative;
+    z-index: 1000;
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger-btn.active .hamburger-line:nth-child(1) {
+    transform:rotate(45deg)  translate(4px, 5px);
+  }
+
+  .hamburger-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-btn.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -5px);
+  }
+
+  .mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-menu.active {
+    max-height: 160px;
+  }
+  @media (min-width: 1650px) {
+    .xl3-no-padding {
+      padding: 0 !important;
+    }
+  }
+  @media (max-width: 767px) {
+    .nav-links a {
+      font-size: 1.1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.classList.add('js-enabled');
+
+  const hamburgerBtn = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
+
+  if (!hamburgerBtn || !mobileMenu) return;
+
+  function setOpenState(isOpen: boolean): void {
+    if (isOpen) {
+      hamburgerBtn!.classList.add('active');
+      hamburgerBtn!.setAttribute('aria-expanded', 'true');
+      mobileMenu!.classList.add('active');
+      mobileMenu!.setAttribute('aria-hidden', 'false');
+    } else {
+      hamburgerBtn!.classList.remove('active');
+      hamburgerBtn!.setAttribute('aria-expanded', 'false');
+      mobileMenu!.classList.remove('active');
+      mobileMenu!.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = hamburgerBtn!.classList.contains('active');
+    setOpenState(!isOpen);
+  });
+
+  const mobileLinks: NodeListOf<HTMLAnchorElement> = mobileMenu!.querySelectorAll('a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => setOpenState(false));
+  });
+
+  document.addEventListener('click', (e: MouseEvent) => {
+    if (hamburgerBtn!.classList.contains('active')) {
+      const target = e.target as Node;
+      if (!hamburgerBtn!.contains(target) && !mobileMenu!.contains(target)) {
+        setOpenState(false);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && hamburgerBtn!.classList.contains('active')) {
+      setOpenState(false);
+      hamburgerBtn!.focus();
+    }
+  });
+});
+</script>

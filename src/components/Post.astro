@@ -1,0 +1,42 @@
+---
+import { type CollectionEntry } from "astro:content";
+
+type Props = {
+    post: CollectionEntry<'posts'>;
+    class?: string;
+}
+
+const { post, class: clasName = "p-1 hover:bg-primary-hover rounded" } = Astro.props;
+
+---
+
+<article class={clasName}>
+    <a
+        href={`/blog/${post.slug}`}
+    >
+        <h2 class="text-xl font-semibold">{post.data.title}</h2>
+        <p class="truncate-words">
+            {post.body}
+        </p>
+    </a>
+</article>
+
+<style>
+.truncate-words {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500px;
+}
+
+        
+@media (max-width: 500px) {
+    .truncate-words {
+          max-width: 400px;
+          font-size: small;
+    }
+
+
+
+</style>

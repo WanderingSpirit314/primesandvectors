@@ -1,0 +1,21 @@
+---
+import Contacts from "../components/Contactinfo.astro";
+
+interface Props {
+  isEmpty?:boolean;
+  class?: string;
+}
+
+
+const {isEmpty = false,  
+  class: className = `
+  w-full mx-auto mt-auto pr-5 
+  border-secondary border-t-2`} = Astro.props;
+
+---
+
+<footer class={className}>
+  <div class="flex">{!isEmpty ? <Contacts /> : ''}</div>
+</footer>
+
+
